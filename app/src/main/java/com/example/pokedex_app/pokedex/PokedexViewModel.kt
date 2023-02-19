@@ -25,7 +25,7 @@ class PokedexViewModel : ViewModel() {
 
                 override fun onResponse(call: Call<NetworkPokemon>,
                                         response: Response<NetworkPokemon>) {
-                    _response.value = "Success: ${response.body()?.results?.size} Pokemon retrieved"
+                    _response.value = "Success: ${response.body()?.count} Pokemon retrieved"
                 }
 
                 override fun onFailure(call: Call<NetworkPokemon>, t: Throwable) {
