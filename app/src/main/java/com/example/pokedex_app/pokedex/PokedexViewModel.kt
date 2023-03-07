@@ -1,5 +1,6 @@
 package com.example.pokedex_app.pokedex
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,7 +26,15 @@ class PokedexViewModel : ViewModel() {
 
                 override fun onResponse(call: Call<NetworkPokemon>,
                                         response: Response<NetworkPokemon>) {
-                    _response.value = "Success: ${response.body()?.count} Pokemon retrieved"
+                    val pokemonList = response.body()?.results
+                    var pokemonNames = ""
+                    if (pokemonList != null) {
+                        for (pokemon in pokemonList) {
+                            pokemonNames += pokemon.name + ", "
+                        }
+                    }
+                    _response.value = "${pokemonNames}"
+                    Log.i("pokemon", "${response.body()?.results?.get(1)}")
                 }
 
                 override fun onFailure(call: Call<NetworkPokemon>, t: Throwable) {
